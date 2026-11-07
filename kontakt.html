@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kontakt — Sandak Production</title>
+<meta name="description" content="Kontakta Sandak Production för bröllop, branding eller familjefotografering.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="kontakt" class="light-header">
+
+<section class="sec" style="padding-top:clamp(140px,16vw,200px)">
+  <div class="wrap contact-grid">
+    <div>
+      <span class="eyebrow">Kontakt</span>
+      <h1 style="font-size:clamp(46px,6.4vw,96px);font-weight:300;margin:22px 0 28px">Hej! <span class="serif">Berätta allt.</span></h1>
+      <p class="lead">Fyll i formuläret så återkommer vi inom ett dygn med tillgänglighet och förslag på upplägg.</p>
+      <ul class="info-list">
+        <li><small>E-post</small><a href="mailto:info@sandakproduction.com">info@sandakproduction.com</a></li>
+        <li><small>Instagram</small><a href="https://www.instagram.com/sandakproduction/" target="_blank" rel="noopener">@sandakproduction</a></li>
+        <li><small>Bas</small>Stockholm · fotograferar i hela Norden</li>
+      </ul>
+    </div>
+    <div>
+      <form id="bokning" class="form">
+        <div class="field full"><label>Vad gäller det?</label><div class="chips">
+          <input type="radio" name="Tjänst" id="t1" value="Bröllop" checked><label for="t1">Bröllop</label>
+          <input type="radio" name="Tjänst" id="t2" value="Bröllopsfilm"><label for="t2">Bröllopsfilm</label>
+          <input type="radio" name="Tjänst" id="t3" value="Foto + film"><label for="t3">Foto + film</label>
+          <input type="radio" name="Tjänst" id="t4" value="Branding"><label for="t4">Branding</label>
+          <input type="radio" name="Tjänst" id="t5" value="Familj"><label for="t5">Familj</label></div></div>
+        <div class="field"><label for="n">Namn</label><input id="n" name="Namn" required autocomplete="name"></div>
+        <div class="field"><label for="e">E-post</label><input id="e" name="E-post" type="email" required autocomplete="email"></div>
+        <div class="field"><label for="d">Datum</label><input id="d" name="Datum" type="date"></div>
+        <div class="field"><label for="p">Plats</label><input id="p" name="Plats" placeholder="t.ex. Stockholm"></div>
+        <div class="field"><label for="g">Antal gäster</label><select id="g" name="Gäster"><option>Under 30</option><option>30–80</option><option>80–150</option><option>Fler än 150</option><option>Inte aktuellt</option></select></div>
+        <div class="field"><label for="h">Hur hittade ni oss?</label><select id="h" name="Källa"><option>Instagram</option><option>Rekommendation</option><option>Google</option><option>Annat</option></select></div>
+        <div class="field full"><label for="m">Berätta om er</label><textarea id="m" name="Meddelande" placeholder="Vad är viktigast för er? Vilken känsla vill ni ha?"></textarea></div>
+        <div class="full" style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap"><span class="form-note">Vi svarar inom 24 timmar.</span><button class="btn btn-dark" type="submit" data-arrow>Skicka förfrågan</button></div>
+      </form>
+      <div class="form-ok"><h3 style="margin-bottom:10px">Tack!</h3><p style="margin:0">Ert e-postprogram öppnas med förfrågan ifylld. Skicka den så hör vi av oss inom ett dygn.</p></div>
+    </div>
+  </div>
+</section>
+
+<script src="assets/main.js"></script>
+</body>
+</html>
