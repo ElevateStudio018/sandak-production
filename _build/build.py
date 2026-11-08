@@ -22,7 +22,7 @@ SITE = {
     'instagram': 'https://www.instagram.com/sandakproduction/',
     'ig_handle': '@sandakproduction',
     'whatsapp': '',                                 # TODO: company WhatsApp number, digits only incl. country code, e.g. 46701234567
-    'version': '5',
+    'version': '6',
 }
 
 LANGS = [
@@ -612,12 +612,6 @@ def fi(cls, src, d=0):
 def fv(cls, src, d=0):
     return f'<figure class="{cls}" data-lb data-r="{d}" tabindex="0"><video src="{V(src)}.mp4" poster="{V(src)}.jpg" muted loop playsinline data-inview></video></figure>'
 
-def redirect(slug, target):
-    for lg in LANGS:
-        out = os.path.join(ROOT, lg['dir'], slug)
-        os.makedirs(os.path.dirname(out), exist_ok=True)
-        open(out, 'w').write(f'<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url={target}"><link rel="canonical" href="{target}"><a href="{target}">{target}</a>\n')
-
 def build():
     for lg in LANGS:
         C.lang = lg['code']; C.P = '../' * lg['dir'].count('/')
@@ -634,9 +628,6 @@ def build():
                   L('Sol, palmblad och ett sällskap som <em>jublade</em> genom hela ceremonin.', 'Sunshine, palm leaves and guests who <em>cheered</em> through the whole ceremony.'),
                   f'<div class="row">{fi("wide","s-cer1.jpg")}</div><div class="row r3">{fi("tall","s-vows.jpg")}{fv("tall","reel-toast",100)}{fi("tall","s-exit.jpg",200)}</div><div class="row r2">{fi("tall","s-cer2.jpg")}{fi("tall","s-cer3.jpg",100)}</div>',
                   ('projekt-skogsbrollop.html', L('Skogsbröllop', 'Forest wedding')))
-    # old URLs keep working
-    redirect('film.html', 'video.html'); redirect('branding.html', 'foretag.html')
-    redirect('berattelse-sara-adam.html', 'projekt-skogsbrollop.html'); redirect('berattelse-elin-marcus.html', 'projekt-sommarvigsel.html')
     print('built', [l['code'] for l in LANGS])
 
 if __name__ == '__main__':
