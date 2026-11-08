@@ -326,3 +326,92 @@ section{position:relative}
 .process-list h4{font-size:clamp(21px,1.8vw,26px);font-weight:400;margin:0 0 8px;letter-spacing:-.02em}
 .process-list p{margin:0;color:var(--ink-soft);font-size:16px;max-width:46ch}
 @media (max-width:860px){.process{grid-template-columns:1fr}.process-media{position:relative;top:0;aspect-ratio:4/4.2}.process-list li{grid-template-columns:48px 1fr}}
+
+/* ===== Mobile optimisation ===== */
+html{-webkit-tap-highlight-color:transparent}
+.mobile-bar{display:none}
+@media (max-width:640px){
+  body{font-size:16px}
+  .sec{padding:72px 0}
+  .head-row{margin-bottom:36px;gap:20px}
+  .head-row h2{margin-top:16px}
+  h2{font-size:clamp(32px,9vw,44px)}
+  .lead{font-size:17px}
+  .statement{font-size:27px}
+  .btn{padding:15px 24px}
+  .site-header .wrap{height:70px}
+  .logo b{font-size:19px}
+
+  /* hero */
+  .hero{min-height:560px}
+  .hero h1{font-size:clamp(42px,12vw,56px)}
+  .hero p{margin:18px auto 28px}
+  .hero-inner{padding-bottom:96px}
+  .page-hero{min-height:68svh}
+  .page-hero h1{font-size:clamp(42px,12vw,60px);margin-top:14px}
+  .page-hero .wrap{padding-bottom:48px}
+
+  /* swipe carousels */
+  .services,.reels,.stories{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 calc(var(--gut)*-1);padding:0 var(--gut) 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .services::-webkit-scrollbar,.reels::-webkit-scrollbar,.stories::-webkit-scrollbar{display:none}
+  .services>*,.stories>*{flex:0 0 84%;scroll-snap-align:center}
+  .reels>*{flex:0 0 62%;scroll-snap-align:center}
+  .svc{aspect-ratio:3/4}
+  .reel:nth-child(even){transform:none}
+  .story:nth-child(2){margin-top:0}
+  .story .meta{flex-direction:column;gap:2px;margin-top:14px}
+  .swipe-hint{display:flex!important}
+
+  /* grids */
+  .masonry{columns:2;column-gap:10px}
+  .masonry figure{margin-bottom:10px;border-radius:12px}
+  .filters{flex-wrap:nowrap;overflow-x:auto;margin:0 calc(var(--gut)*-1);padding:0 var(--gut);scrollbar-width:none}
+  .filters::-webkit-scrollbar{display:none}
+  .filters button{flex:none}
+  .steps{grid-template-columns:1fr 1fr;gap:0 18px}
+  .step{padding:26px 0 6px}
+  .step i{font-size:38px}
+  .step h4{font-size:19px;margin:10px 0 6px}
+  .step p{font-size:14px}
+  .stats b{font-size:26px}
+  .pkg{padding:30px 24px}
+  .process-list li{padding:22px 0}
+  .faq summary{padding:22px 0;font-size:18px}
+  .faq summary i{width:34px;height:34px}
+  .cta-band{padding:96px 0}
+  .cta-band .btn{width:100%;max-width:340px;justify-content:center}
+  .split .media{aspect-ratio:4/4.3}
+  .quote{font-size:26px}
+  .next-story{flex-direction:column;align-items:flex-start}
+  .gallery-rows{gap:10px}.gallery-rows .row{gap:10px}
+  .footer-top{gap:32px;padding-bottom:44px}
+  .marquee{padding:18px 0}
+  .marquee div{font-size:26px;gap:36px}
+  .marquee span::after{margin-left:36px}
+
+  /* sticky booking bar */
+  .mobile-bar{display:flex;position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:40;gap:8px;padding:8px;border-radius:999px;background:rgba(27,25,22,.88);backdrop-filter:blur(14px);box-shadow:0 10px 30px rgba(0,0,0,.25);transform:translateY(140%);transition:transform .5s var(--ease)}
+  .mobile-bar.show{transform:none}
+  .mobile-bar a{flex:1;justify-content:center;padding:14px 10px;font-size:12px}
+  .mobile-bar .ig{flex:0 0 48px;padding:0;border:1px solid rgba(255,255,255,.25);color:#fff}
+  body.menu-open .mobile-bar{display:none}
+  .footer{padding-bottom:110px}
+}
+.swipe-hint{display:none;align-items:center;gap:10px;margin-top:18px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.sec-dark .swipe-hint{color:rgba(245,240,232,.5)}
+.swipe-hint::after{content:"";width:40px;height:1px;background:currentColor}
+@media (hover:none){
+  .masonry figcaption{opacity:1;transform:none;font-size:12px}
+  .masonry figure::after{opacity:1}
+  .masonry figcaption span:last-child{display:none}
+}
+@media (max-width:960px){
+  .site-header.solid,.site-header.light{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(251,248,243,.98)}
+  .nav{height:100svh;visibility:hidden;transition:transform .6s var(--ease),visibility 0s .6s}
+  body.menu-open .nav{visibility:visible;transition:transform .6s var(--ease)}
+  body.menu-open .site-header{background:transparent;box-shadow:none}
+  body.menu-open .logo{color:var(--ivory)!important;position:relative;z-index:2}
+}
+@media (max-width:960px){
+  body.menu-open .site-header .menu-btn{color:var(--ivory);border-color:rgba(255,255,255,.3)}
+}

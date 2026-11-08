@@ -32,6 +32,16 @@
   </div><div class="footer-bottom"><span>© ${new Date().getFullYear()} Sandak Production</span><span>Fotografi & film · Stockholm</span></div></div>`;
   document.body.append(footer);
 
+  /* Mobile booking bar */
+  if (page !== 'kontakt') {
+    const bar = document.createElement('div');
+    bar.className = 'mobile-bar';
+    bar.innerHTML = `<a href="kontakt.html" class="btn btn-solid">Kontrollera ert datum</a><a href="${IG}" class="btn ig" target="_blank" rel="noopener" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>`;
+    document.body.append(bar);
+    const ft = () => { const nearEnd = innerHeight + scrollY > document.body.scrollHeight - 500; bar.classList.toggle('show', scrollY > innerHeight * .8 && !nearEnd); };
+    addEventListener('scroll', ft, {passive:true});
+  }
+
   document.querySelectorAll('[data-arrow]').forEach(b => b.insertAdjacentHTML('beforeend', ' ' + arrow));
 
   /* Hero video rotation */
@@ -39,6 +49,7 @@
   const dots = document.querySelector('.hero-dots');
   if (hv.length) {
     let i = 0;
+    if (matchMedia('(max-width:640px)').matches) hv.forEach(v => { if (v.dataset.m) { v.src = v.dataset.m + '.mp4'; v.poster = v.dataset.m + '.jpg'; } });
     if (dots) dots.innerHTML = hv.map(() => '<i></i>').join('');
     const show = n => {
       hv.forEach((v,k) => { v.classList.toggle('on', k===n); if (k===n){ v.currentTime=0; v.play().catch(()=>{}); } });
@@ -85,6 +96,9 @@
     document.addEventListener('click', e => { const f = e.target.closest('[data-lb]'); if (f) open(f); });
     lb.querySelector('.x').onclick = close; lb.querySelector('.prev').onclick = () => go(-1); lb.querySelector('.next').onclick = () => go(1);
     lb.addEventListener('click', e => { if (e.target === lb || e.target === stage) close(); });
+    let sx = 0;
+    lb.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, {passive:true});
+    lb.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1); });
     addEventListener('keydown', e => { if (!lb.classList.contains('on')) return; if (e.key==='Escape') close(); if (e.key==='ArrowLeft') go(-1); if (e.key==='ArrowRight') go(1); });
   }
 
