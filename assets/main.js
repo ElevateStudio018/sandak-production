@@ -135,7 +135,8 @@
       d.delete('service');
       try {
         const res = await fetch(endpoint, { method: 'POST', body: d, headers: { Accept: 'application/json' } });
-        if (!res.ok) throw new Error(res.status);
+        const j = await res.json().catch(() => ({}));
+        if (!res.ok || j.success === 'false' || j.success === false) throw new Error(res.status);
         form.hidden = true; ok.style.display = 'block'; ok.focus();
       } catch (_) { err.style.display = 'block'; }
       btn.disabled = false; btn.style.opacity = '';

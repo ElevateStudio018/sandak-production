@@ -26,7 +26,8 @@ SITE = {
     # Contact form backend (Formspree): every request is e-mailed to the owner AND stored in the Formspree dashboard.
     # Create a form at formspree.io with the owner's e-mail and paste its endpoint here, e.g. 'https://formspree.io/f/abcdwxyz'.
     # While empty, the form falls back to opening the visitor's e-mail app.
-    'form_endpoint': '',
+    # FormSubmit needs no account: the first request triggers a one-time activation e-mail to the address below.
+    'form_endpoint': 'https://formsubmit.co/ajax/sandakproduction@gmail.com',
     # Social profiles – only the ones filled in are shown.
     'socials': {
         'instagram': 'https://www.instagram.com/sandakproduction/',
@@ -35,7 +36,7 @@ SITE = {
         'youtube': '',
         'linkedin': '',
     },
-    'version': '7',
+    'version': '8',
 }
 
 LANGS = [
@@ -621,7 +622,8 @@ def p_kontakt():
     </div>
     <div>
       <form id="bokning" class="form" novalidate action="{SITE['form_endpoint']}" method="POST" data-endpoint="{SITE['form_endpoint']}" data-mail="{SITE['email']}" data-subject="{x(L('Förfrågan via webbplatsen', 'Enquiry via website'))}" data-services-label="{x(L('Tjänster', 'Services'))}">
-        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+        <input type="text" name="{'_honey' if 'formsubmit' in SITE['form_endpoint'] else '_gotcha'}" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+        <input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_subject" value="{x(L('Ny förfrågan – SanDak Production', 'New enquiry – SanDak Production'))}">
         <input type="hidden" name="språk" value="{C.lang}">
         <fieldset class="field full"><legend>{x(L('Vad gäller det?', 'What do you need?'))}</legend><div class="chips">{chips}</div></fieldset>
