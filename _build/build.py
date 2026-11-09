@@ -18,7 +18,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SITE = {
     'name': 'SanDak Production',
-    'email': 'info@sandakproduction.com',          # TODO: confirm the company's real address
+    'email': 'sandakproduction@gmail.com',
     'instagram': 'https://www.instagram.com/sandakproduction/',
     'ig_handle': '@sandakproduction',
     'whatsapp': '',                                 # TODO: company WhatsApp number, digits only incl. country code, e.g. 46701234567
