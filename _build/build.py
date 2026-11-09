@@ -22,7 +22,20 @@ SITE = {
     'instagram': 'https://www.instagram.com/sandakproduction/',
     'ig_handle': '@sandakproduction',
     'whatsapp': '',                                 # TODO: company WhatsApp number, digits only incl. country code, e.g. 46701234567
-    'version': '6',
+    'phone': '',                                    # TODO: shown on the contact page when set, e.g. '+46 70 123 45 67'
+    # Contact form backend (Formspree): every request is e-mailed to the owner AND stored in the Formspree dashboard.
+    # Create a form at formspree.io with the owner's e-mail and paste its endpoint here, e.g. 'https://formspree.io/f/abcdwxyz'.
+    # While empty, the form falls back to opening the visitor's e-mail app.
+    'form_endpoint': '',
+    # Social profiles – only the ones filled in are shown.
+    'socials': {
+        'instagram': 'https://www.instagram.com/sandakproduction/',
+        'facebook': '',
+        'tiktok': '',
+        'youtube': '',
+        'linkedin': '',
+    },
+    'version': '7',
 }
 
 LANGS = [
@@ -58,6 +71,19 @@ def wa_link():
 
 WA_ICON = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.23 8.23 0 0 1-4.2-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.22-8.24 8.22Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>'
 IG_ICON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg>'
+SOCIAL_ICONS = {
+    'instagram': IG_ICON,
+    'facebook': '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8h3V4h-3c-2.8 0-4.5 1.8-4.5 4.6V11H7v4h2.5v9h4v-9h3l.5-4h-3.5V8.8c0-.5.3-.8.5-.8Z"/></svg>',
+    'tiktok': '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 2h-3.4v13.4a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.2a6.3 6.3 0 1 0 5.4 6.2V8.7a8 8 0 0 0 4.4 1.3V6.6a4.5 4.5 0 0 1-4.4-4.6Z"/></svg>',
+    'youtube': '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12c0 1.6.2 3.2.5 4.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1c.3-1.6.5-3.2.5-4.8s-.2-3.2-.5-4.8ZM9.8 15.1V8.9l5.8 3.1-5.8 3.1Z"/></svg>',
+    'linkedin': '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm7 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.9-1.8-2.9s-2 1.4-2 2.8V21h-4V9.5Z"/></svg>',
+}
+SOCIAL_NAMES = {'instagram': 'Instagram', 'facebook': 'Facebook', 'tiktok': 'TikTok', 'youtube': 'YouTube', 'linkedin': 'LinkedIn'}
+
+def social_row():
+    items = ''.join(f'<a href="{u}" target="_blank" rel="noopener" aria-label="{SOCIAL_NAMES[k]}">{SOCIAL_ICONS[k]}</a>' for k, u in SITE['socials'].items() if u)
+    return f'<div class="social-row">{items}</div>' if items else ''
+
 MAIL_ICON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>'
 
 # ------------------------------------------------------------------ navigation
@@ -126,10 +152,11 @@ def footer():
   <div><h5>{x(L('Kontakt', 'Contact'))}</h5><ul>
     <li><a href="mailto:{SITE['email']}">{SITE['email']}</a></li>
     <li><a href="{wa_link()}" target="_blank" rel="noopener">WhatsApp ↗</a></li>
-    <li><a href="{SITE['instagram']}" target="_blank" rel="noopener">Instagram ↗</a></li>
-    <li>{x(L('Stockholm, Sverige', 'Stockholm, Sweden'))}</li></ul>
+    {''.join(f'<li><a href="{u}" target="_blank" rel="noopener">{SOCIAL_NAMES[k]} ↗</a></li>' for k, u in SITE['socials'].items() if u)}
+    {f'<li><a href="tel:{SITE["phone"].replace(" ", "")}">{SITE["phone"]}</a></li>' if SITE['phone'] else ''}
+    <li>{x(L('Hela Sverige & internationellt', 'All of Sweden & internationally'))}</li></ul>
     <div style="margin-top:26px">{lang_switch()}</div></div>
-</div><div class="footer-bottom"><span>© <span data-year>2026</span> SanDak Production</span><span>{x(L('Foto · Video · Design · Stockholm', 'Photo · Video · Design · Stockholm'))}</span></div></div></footer>'''
+</div><div class="footer-bottom"><span>© <span data-year>2026</span> SanDak Production</span><span>{x(L('Foto · Video · Design · Sedan 2011', 'Photo · Video · Design · Since 2011'))}</span></div></div></footer>'''
 
 def contact_dock(key):
     if key == 'kontakt':
@@ -254,23 +281,23 @@ def p_index():
   <div class="hero-inner wrap">
     <span class="eyebrow hero-eyebrow fade-in">{x(L('Foto · Video · Design', 'Photo · Video · Design'))}</span>
     <h1><span class="reveal-line"><span>{x(L('Bilder som syns.', 'Images that stand out.'))}</span></span><span class="reveal-line"><span class="serif">{x(L('Film som känns.', 'Films that move.'))}</span></span></h1>
-    <p class="fade-in">{x(L('SanDak Production är en foto- och videoproduktion i Stockholm för företag, restauranger, hotell, fastigheter, event och bröllop.', 'SanDak Production is a photo and video production company in Stockholm, working with businesses, restaurants, hotels, real estate, events and weddings.'))}</p>
+    <p class="fade-in">{x(L('Foto- och videoproduktion sedan 2011 – för företag, restauranger, hotell, fastigheter, event och bröllop. I hela Sverige och internationellt.', 'Photo and video production since 2011 – for businesses, restaurants, hotels, real estate, events and weddings. Across Sweden and internationally.'))}</p>
     <div class="ctas fade-in">
       <a href="kontakt.html" class="btn btn-solid" data-arrow>{x(L('Starta ett projekt', 'Start a project'))}</a>
       <a href="portfolio.html" class="btn btn-ghost">{x(L('Se portfolio', 'View portfolio'))}</a>
     </div>
   </div>
-  <div class="hero-meta"><div class="wrap"><span class="loc">Stockholm</span><div class="hero-dots"></div><span>{x(L('Scrolla', 'Scroll'))}</span></div></div>
+  <div class="hero-meta"><div class="wrap"><span class="loc">{x(L("Hela Sverige · Internationellt", "Sweden · International"))}</span><div class="hero-dots"></div><span>{x(L('Scrolla', 'Scroll'))}</span></div></div>
 </section>'''
     intro = f'''<section class="sec">
   <div class="wrap intro-grid">
     <div><span class="eyebrow" data-r>SanDak Production</span>
       <p class="statement" style="margin-top:28px" data-r>{x(L('En produktionsbyrå för <em>foto, film och design</em> – från en enskild porträttbild till en hel kampanj.', 'A production studio for <em>photo, film and design</em> – from a single portrait to a full campaign.'))}</p></div>
     <div class="side" data-r="150">
-      <p>{x(L('Med många års erfarenhet bakom kameran skapar SanDak Production det ni vill ha – för ert varumärke, er verksamhet eller ert event. Vi ser till att ert budskap och er känsla når fram till rätt publik.', 'With many years of experience behind the camera, SanDak Production creates what you need – for your brand, your business or your event. We make sure your message and feeling reach the right audience.'))}</p>
+      <p>{x(L('Sedan 2011 har vi arbetat med fotografering, videoproduktion, redigering och grafisk design. Den erfarenheten använder vi för att skapa det ni behöver – för ert varumärke, er verksamhet eller ert event – och se till att ert budskap och er känsla når fram till rätt publik.', 'Since 2011 we have worked across photography, video production, editing and graphic design. We use that experience to create what you need – for your brand, your business or your event – and make sure your message and feeling reach the right audience.'))}</p>
       <p>{x(L('Målet är alltid detsamma: material av hög kvalitet som överträffar förväntningarna.', 'The goal is always the same: high-quality work that exceeds expectations.'))}</p>
       <a href="om-oss.html" class="btn btn-line" style="margin-top:12px" data-arrow>{x(L('Om oss', 'About us'))}</a>
-      <div class="stats"><div><b>{x(L('Foto', 'Photo'))}</b><span>{x(L('företag, porträtt, fastighet', 'business, portrait, property'))}</span></div><div><b>Video</b><span>{x(L('reklam, event, sociala medier', 'ads, events, social'))}</span></div><div><b>Design</b><span>{x(L('grafiskt material', 'graphic material'))}</span></div></div>
+      <div class="stats"><div><b>2011</b><span>{x(L('erfarenhet sedan', 'experience since'))}</span></div><div><b>{x(L('Sverige', 'Sweden'))}</b><span>{x(L('uppdrag i hela landet', 'assignments nationwide'))}</span></div><div><b>{x(L('Världen', 'Abroad'))}</b><span>{x(L('bl.a. Spanien', 'incl. Spain'))}</span></div></div>
     </div>
   </div>
 </section>'''
@@ -322,9 +349,9 @@ def p_index():
   </div>
 </section>'''
     body = hero + intro + services + pillars + audience + selected + process_section() + cta(L('Har ni ett projekt? <span class="serif">Låt oss prata.</span>', 'Have a project in mind? <span class="serif">Let’s talk.</span>'))
-    page('index.html', 'home', L('Foto- och videoproduktion i Stockholm', 'Photo & video production in Stockholm'),
-         L('SanDak Production – professionell fotografering, videoproduktion, företagsreklam, event, bröllop, restauranger, hotell, fastigheter, porträtt och grafisk design i Stockholm.',
-           'SanDak Production – professional photography, video production, commercials, events, weddings, restaurants, hotels, real estate, portraits and graphic design in Stockholm.'), body)
+    page('index.html', 'home', L('Foto- och videoproduktion i hela Sverige', 'Photo & video production across Sweden'),
+         L('SanDak Production – professionell fotografering, videoproduktion, företagsreklam, event, bröllop, restauranger, hotell, fastigheter, porträtt och grafisk design – i hela Sverige och internationellt, bland annat i Spanien.',
+           'SanDak Production – professional photography, video production, commercials, events, weddings, restaurants, hotels, real estate, portraits and graphic design – across Sweden and internationally, including Spain.'), body)
 
 def p_foto():
     areas = [
@@ -357,7 +384,7 @@ def p_foto():
   <div class="gallery-rows"><div class="row r3">{strip}</div></div>
 </div></section>
 ''' + cta(L('Behöver ni <span class="serif">nya bilder?</span>', 'Need <span class="serif">new images?</span>'), media='v-studio')
-    page('foto.html', 'foto', L('Fotografering', 'Photography'), L('Porträtt-, fastighets-, restaurang-, hotell- och eventfotografering i Stockholm.', 'Portrait, real estate, restaurant, hotel and event photography in Stockholm.'), body)
+    page('foto.html', 'foto', L('Fotografering', 'Photography'), L('Porträtt-, fastighets-, restaurang-, hotell- och eventfotografering i hela Sverige och internationellt.', 'Portrait, real estate, restaurant, hotel and event photography across Sweden and internationally.'), body)
 
 def p_video():
     types = [
@@ -396,7 +423,7 @@ def p_video():
   <div class="steps light">{st}</div>
 </div></section>
 ''' + cta(L('Vad vill ni <span class="serif">berätta?</span>', 'What do you want <span class="serif">to say?</span>'), media='v-cameraman')
-    page('video.html', 'video', L('Videoproduktion', 'Video production'), L('Reklamfilm, eventfilm, fastighetsfilm och video för sociala medier i Stockholm.', 'Commercials, event films, property films and social media video in Stockholm.'), body)
+    page('video.html', 'video', L('Videoproduktion', 'Video production'), L('Reklamfilm, eventfilm, fastighetsfilm och video för sociala medier – i hela Sverige och internationellt.', 'Commercials, event films, property films and social media video – across Sweden and internationally.'), body)
 
 def p_foretag():
     secs = [
@@ -466,13 +493,13 @@ def p_brollop():
   <span class="eyebrow" data-r>{x(L('Vanliga frågor', 'FAQ'))}</span><h2 class="h2-sm" style="margin:22px 0 40px" data-r>{x(L('Bra att <span class="serif">veta</span>', 'Good <span class="serif">to know</span>'))}</h2>
   {faq([
     (L('Hur långt i förväg bör vi höra av oss?', 'How far in advance should we get in touch?'), L('Så snart ni har ett datum. Populära helger under sommaren bokas ofta tidigt.', 'As soon as you have a date. Popular summer weekends tend to book up early.')),
-    (L('Reser ni utanför Stockholm?', 'Do you travel outside Stockholm?'), L('Ja, hör av er med plats och datum så återkommer vi med ett förslag.', 'Yes – send us the location and date and we’ll come back with a proposal.')),
+    (L('Var tar ni uppdrag?', 'Where do you work?'), L('I hela Sverige, och vi tar även internationella uppdrag – bland annat i Spanien. Hör av er med plats och datum så återkommer vi med ett förslag.', 'All over Sweden, and we also take international assignments – including in Spain. Send us the location and date and we’ll come back with a proposal.')),
     (L('Kan vi boka både foto och film?', 'Can we book both photo and film?'), L('Absolut. Då planerar och arbetar foto och film tillsammans under dagen.', 'Absolutely. Photo and film then plan and work together throughout the day.')),
     (L('Hur bokar vi?', 'How do we book?'), L('Skicka en förfrågan via formuläret, mejl eller WhatsApp. Vi går igenom upplägget och skickar en offert.', 'Send a request via the form, e-mail or WhatsApp. We’ll go through the details and send a quote.')),
   ])}
 </div></section>
 ''' + cta(L('Låt oss planera <span class="serif">er dag.</span>', 'Let’s plan <span class="serif">your day.</span>'), btn=L('Fråga om ert datum', 'Ask about your date'), media='hero-sunset')
-    page('brollop.html', 'brollop', L('Bröllopsfoto & bröllopsfilm', 'Wedding photography & film'), L('Bröllopsfotografering och bröllopsfilm i Stockholm och resten av Sverige.', 'Wedding photography and wedding films in Stockholm and across Sweden.'), body)
+    page('brollop.html', 'brollop', L('Bröllopsfoto & bröllopsfilm', 'Wedding photography & film'), L('Bröllopsfotografering och bröllopsfilm i hela Sverige och utomlands, bland annat i Spanien.', 'Wedding photography and films across Sweden and abroad, including Spain.'), body)
 
 def p_portfolio():
     cats = [('alla', L('Alla', 'All')), ('portratt', L('Porträtt', 'Portraits')), ('fastighet', L('Fastighet', 'Real estate')), ('restaurang', L('Restaurang & hotell', 'Restaurants & hotels')),
@@ -539,11 +566,26 @@ def p_om():
     st = ''.join(f'<div class="step" data-r="{i*100}"><i>0{i+1}</i><h4>{x(t)}</h4><p>{x(d)}</p></div>' for i, (t, d) in enumerate(vals))
     svc = ''.join(f'<li><a href="{s[1]}">{x(s[3])}</a></li>' for s in SERVICES)
     body = hero_page(L('Om oss', 'About'), L('Bakom <span class="serif">kameran</span>', 'Behind <span class="serif">the camera</span>'),
-                     L('SanDak Production är en foto- och videoproduktion med bas i Stockholm.', 'SanDak Production is a photo and video production company based in Stockholm.'), 'v-cameraman') + f'''
+                     L('Foto, video, redigering och grafisk design sedan 2011 – i hela Sverige och internationellt.', 'Photography, video, editing and graphic design since 2011 – across Sweden and internationally.'), 'v-cameraman') + f'''
 <section class="sec"><div class="wrap intro-grid">
-  <p class="statement" data-r>{x(L('Med många års erfarenhet bakom kameran skapar vi <em>det ni vill ha.</em>', 'With many years behind the camera, we create <em>what you need.</em>'))}</p>
+  <p class="statement" data-r>{x(L('Bakom kameran och vid redigeringsbordet <em>sedan 2011.</em>', 'Behind the camera and in the edit <em>since 2011.</em>'))}</p>
   <div class="side" data-r="150"><p>{x(L('Vi arbetar med företag, verksamheter och privatpersoner – från reklamfilm och eventdokumentation till fastighetsbilder, porträtt och bröllop. Vi ser till att ert budskap och er känsla når fram till er publik.', 'We work with businesses and individuals – from commercials and event coverage to property images, portraits and weddings. We make sure your message and feeling reach your audience.'))}</p>
   <p>{x(L('Målet är alltid att producera material av hög kvalitet som överträffar förväntningarna.', 'The goal is always to produce high-quality work that exceeds expectations.'))}</p></div>
+</div></section>
+<section class="sec sec-sand"><div class="wrap">
+  <div class="head-row"><div><span class="eyebrow" data-r>{x(L('Erfarenhet', 'Experience'))}</span><h2 class="h2-sm" style="margin-top:20px" data-r>{x(L('Fyra discipliner, <span class="serif">en helhet</span>', 'Four disciplines, <span class="serif">one whole</span>'))}</h2></div>
+    <p class="lead" data-r>{x(L('Sedan 2011 har arbetet omfattat hela kedjan – från planering och inspelning till redigering och grafisk form. Det gör att idé, bild och slutresultat hänger ihop.', 'Since 2011 the work has covered the whole chain – from planning and shooting to editing and graphic design. That keeps idea, image and final result consistent.'))}</p></div>
+  <div class="exp-grid">
+    <div class="exp" data-r><span class="exp-y">2011–</span><h4>{x(L('Fotografering', 'Photography'))}</h4><p>{x(L('Porträtt, företag, fastigheter, restauranger, hotell, event och bröllop.', 'Portraits, business, real estate, restaurants, hotels, events and weddings.'))}</p></div>
+    <div class="exp" data-r="100"><span class="exp-y">2011–</span><h4>{x(L('Videoproduktion', 'Video production'))}</h4><p>{x(L('Reklam- och varumärkesfilm, eventfilm, sociala medier och bröllopsfilm.', 'Commercials and brand films, event films, social media and wedding films.'))}</p></div>
+    <div class="exp" data-r="200"><span class="exp-y">2011–</span><h4>{x(L('Redigering', 'Editing'))}</h4><p>{x(L('Bildbehandling, klippning, färgsättning och ljud.', 'Retouching, editing, colour grading and sound.'))}</p></div>
+    <div class="exp" data-r="300"><span class="exp-y">2011–</span><h4>{x(L('Grafisk design', 'Graphic design'))}</h4><p>{x(L('Grafiskt material för digitala kanaler, tryck och film.', 'Graphic material for digital channels, print and film.'))}</p></div>
+  </div>
+</div></section>
+<section class="sec"><div class="wrap reach">
+  <div><span class="eyebrow" data-r>{x(L('Var vi arbetar', 'Where we work'))}</span><h2 class="h2-sm" style="margin-top:20px" data-r>{x(L('Hela Sverige. <span class="serif">Och längre bort.</span>', 'All of Sweden. <span class="serif">And beyond.</span>'))}</h2></div>
+  <div data-r="120"><p class="lead">{x(L('Vi tar uppdrag i hela Sverige och reser gärna för internationella produktioner – bland annat i Spanien.', 'We work all over Sweden and are happy to travel for international productions – including in Spain.'))}</p>
+  <ul class="reach-list"><li>{x(L('Hela Sverige', 'All of Sweden'))}</li><li>{x(L('Spanien', 'Spain'))}</li><li>{x(L('Övriga internationella uppdrag', 'Other international assignments'))}</li></ul></div>
 </div></section>
 <section class="sec sec-dark"><div class="wrap">
   <div class="head-row"><div><span class="eyebrow" data-r>{x(L('Det vi står för', 'What we stand for'))}</span><h2 data-r>{x(L('Så tänker <span class="serif">vi</span>', 'How we <span class="serif">think</span>'))}</h2></div></div>
@@ -556,7 +598,7 @@ def p_om():
   <a href="kontakt.html" class="btn btn-dark" style="margin-top:30px" data-r data-arrow>{x(L('Kontakta oss', 'Contact us'))}</a></div>
 </div></section>
 ''' + cta(L('Låt oss <span class="serif">skapa något.</span>', 'Let’s <span class="serif">create something.</span>'), media='v-studio')
-    page('om-oss.html', 'om', L('Om oss', 'About'), L('SanDak Production – foto, video och design i Stockholm.', 'SanDak Production – photo, video and design in Stockholm.'), body)
+    page('om-oss.html', 'om', L('Om oss', 'About'), L('SanDak Production – foto, video, redigering och grafisk design sedan 2011.', 'SanDak Production – photography, video, editing and graphic design since 2011.'), body)
 
 def p_kontakt():
     chips = ''.join(f'<input type="checkbox" name="service" id="s{i}" value="{x(s[3])}"><label for="s{i}">{x(s[3])}</label>' for i, s in enumerate(SERVICES))
@@ -571,23 +613,29 @@ def p_kontakt():
       <div class="contact-cards">
         <a href="{wa_link()}" target="_blank" rel="noopener" class="ccard wa-card">{WA_ICON}<span><small>WhatsApp</small>{x(L('Starta en konversation', 'Start a conversation'))}</span></a>
         <a href="mailto:{SITE['email']}" class="ccard">{MAIL_ICON}<span><small>{x(L('E-post', 'E-mail'))}</small>{SITE['email']}</span></a>
+        {f'<a href="tel:{SITE["phone"].replace(" ", "")}" class="ccard"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span><small>{x(L("Telefon", "Phone"))}</small>{SITE["phone"]}</span></a>' if SITE['phone'] else ''}
         <a href="{SITE['instagram']}" target="_blank" rel="noopener" class="ccard">{IG_ICON}<span><small>Instagram</small>{SITE['ig_handle']}</span></a>
       </div>
-      <p class="form-note" style="margin-top:22px">{x(L('Baserade i Stockholm.', 'Based in Stockholm.'))}</p>
+      {social_row()}
+      <p class="form-note" style="margin-top:22px">{x(L('Uppdrag i hela Sverige och internationellt, bland annat i Spanien.', 'Assignments across Sweden and internationally, including Spain.'))}</p>
     </div>
     <div>
-      <form id="bokning" class="form" novalidate data-mail="{SITE['email']}" data-subject="{x(L('Förfrågan via webbplatsen', 'Enquiry via website'))}" data-services-label="{x(L('Tjänster', 'Services'))}">
+      <form id="bokning" class="form" novalidate action="{SITE['form_endpoint']}" method="POST" data-endpoint="{SITE['form_endpoint']}" data-mail="{SITE['email']}" data-subject="{x(L('Förfrågan via webbplatsen', 'Enquiry via website'))}" data-services-label="{x(L('Tjänster', 'Services'))}">
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+        <input type="hidden" name="_subject" value="{x(L('Ny förfrågan – SanDak Production', 'New enquiry – SanDak Production'))}">
+        <input type="hidden" name="språk" value="{C.lang}">
         <fieldset class="field full"><legend>{x(L('Vad gäller det?', 'What do you need?'))}</legend><div class="chips">{chips}</div></fieldset>
         {fld('namn', L('Namn', 'Name'), req=True, ac='name')}
-        {fld('epost', L('E-post', 'E-mail'), 'email', True, ac='email')}
+        {fld('email', L('E-post', 'E-mail'), 'email', True, ac='email')}
         {fld('telefon', L('Telefon', 'Phone'), 'tel', ac='tel')}
         {fld('foretag', L('Företag', 'Company'), ac='organization', ph=L('Valfritt', 'Optional'))}
         {fld('datum', L('Önskat datum', 'Preferred date'), 'date')}
-        {fld('plats', L('Plats', 'Location'), ph=L('t.ex. Stockholm', 'e.g. Stockholm'))}
+        {fld('plats', L('Plats', 'Location'), ph=L('Ort eller land', 'City or country'))}
         <div class="field full"><label for="meddelande">{x(L('Meddelande', 'Message'))} *</label><textarea id="meddelande" name="meddelande" required data-label="{x(L('Meddelande', 'Message'))}" placeholder="{x(L('Vad vill ni skapa, och var ska materialet användas?', 'What would you like to create, and where will it be used?'))}"></textarea></div>
-        <div class="full form-foot"><span class="form-note">{x(L('Formuläret öppnar ert e-postprogram med förfrågan ifylld.', 'The form opens your e-mail app with your request filled in.'))}</span><button class="btn btn-dark" type="submit" data-arrow>{x(L('Skicka förfrågan', 'Send request'))}</button></div>
+        <div class="full form-foot"><span class="form-note">{x(L('Vi återkommer till er via e-post.', 'We will get back to you by e-mail.')) if SITE['form_endpoint'] else x(L('Formuläret öppnar ert e-postprogram med förfrågan ifylld.', 'The form opens your e-mail app with your request filled in.'))}</span><button class="btn btn-dark" type="submit" data-arrow>{x(L('Skicka förfrågan', 'Send request'))}</button></div>
       </form>
-      <div class="form-ok" role="status"><h3 style="margin-bottom:10px">{x(L('Tack!', 'Thank you!'))}</h3><p style="margin:0">{x(L('Ert e-postprogram öppnas med förfrågan ifylld – skicka den så återkommer vi. Ni kan också nå oss på WhatsApp.', 'Your e-mail app is opening with your request filled in – send it and we’ll get back to you. You can also reach us on WhatsApp.'))}</p></div>
+      <div class="form-ok" role="status" tabindex="-1"><h3 style="margin-bottom:10px">{x(L('Tack för er förfrågan!', 'Thank you for your enquiry!'))}</h3><p style="margin:0">{x(L('Vi har tagit emot ert meddelande och återkommer så snart vi kan. Ni kan också nå oss på WhatsApp.', 'We have received your message and will get back to you as soon as we can. You can also reach us on WhatsApp.')) if SITE['form_endpoint'] else x(L('Ert e-postprogram öppnas med förfrågan ifylld – skicka den så återkommer vi. Ni kan också nå oss på WhatsApp.', 'Your e-mail app is opening with your request filled in – send it and we’ll get back to you. You can also reach us on WhatsApp.'))}</p></div>
+      <div class="form-err" role="alert">{x(L('Något gick fel när förfrågan skulle skickas. Försök igen, eller mejla oss direkt på', 'Something went wrong sending your request. Please try again, or e-mail us directly at'))} <a href="mailto:{SITE['email']}">{SITE['email']}</a>.</div>
     </div>
   </div>
 </section>'''

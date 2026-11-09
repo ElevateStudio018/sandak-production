@@ -116,19 +116,34 @@
     addEventListener('keydown', e => { if (!lb.classList.contains('on')) return; if (e.key==='Escape') close(); if (e.key==='ArrowLeft') go(-1); if (e.key==='ArrowRight') go(1); });
   }
 
-  /* Contact form → opens the visitor's e-mail app with the request filled in */
+  /* Contact form
+     - With a Formspree endpoint (data-endpoint): sent in the background → e-mailed to the owner and stored in the Formspree dashboard.
+     - Without one: opens the visitor's e-mail app with the request filled in. */
   const form = document.querySelector('#bokning');
-  if (form) form.addEventListener('submit', e => {
+  if (form) form.addEventListener('submit', async e => {
     e.preventDefault();
     if (!form.reportValidity()) return;
+    const ok = document.querySelector('.form-ok'), err = document.querySelector('.form-err');
+    err.style.display = 'none';
     const d = new FormData(form);
     const services = d.getAll('service').join(', ');
-    const lines = [...form.querySelectorAll('[data-label]')].map(el => {
-      const v = el.type === 'checkbox' ? null : el.value;
-      return v ? `${el.dataset.label}: ${v}` : null;
-    }).filter(Boolean);
+    const endpoint = form.dataset.endpoint;
+    if (endpoint) {
+      const btn = form.querySelector('[type=submit]');
+      btn.disabled = true; btn.style.opacity = .6;
+      if (services) d.set('Tjänster', services);
+      d.delete('service');
+      try {
+        const res = await fetch(endpoint, { method: 'POST', body: d, headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error(res.status);
+        form.hidden = true; ok.style.display = 'block'; ok.focus();
+      } catch (_) { err.style.display = 'block'; }
+      btn.disabled = false; btn.style.opacity = '';
+      return;
+    }
+    const lines = [...form.querySelectorAll('[data-label]')].map(el => el.value ? `${el.dataset.label}: ${el.value}` : null).filter(Boolean);
     if (services) lines.unshift(`${form.dataset.servicesLabel}: ${services}`);
     location.href = `mailto:${form.dataset.mail}?subject=${encodeURIComponent(form.dataset.subject + (services ? ' – ' + services : ''))}&body=${encodeURIComponent(lines.join('\n'))}`;
-    form.hidden = true; document.querySelector('.form-ok').style.display = 'block';
+    form.hidden = true; ok.style.display = 'block';
   });
 })();
