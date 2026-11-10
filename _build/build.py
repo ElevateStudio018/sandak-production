@@ -36,7 +36,7 @@ SITE = {
         'youtube': '',
         'linkedin': '',
     },
-    'version': '10',
+    'version': '11',
 }
 
 LANGS = [
@@ -288,18 +288,18 @@ def p_index():
   </div>
   <div class="hero-meta"><div class="wrap"><span class="loc">{x(L("Hela Sverige · Internationellt", "Sweden · International"))}</span><div class="hero-dots"></div><span>{x(L('Scrolla', 'Scroll'))}</span></div></div>
 </section>'''
-    intro = f'''<section class="sec">
-  <div class="wrap intro-grid">
-    <div><span class="eyebrow" data-r>SanDak Production</span>
-      <p class="statement" style="margin-top:28px" data-r>{x(L('En produktionsbyrå för <em>foto, film och design</em> – från en enskild porträttbild till en hel kampanj.', 'A production studio for <em>photo, film and design</em> – from a single portrait to a full campaign.'))}</p></div>
-    <div class="side" data-r="150">
-      <p>{x(L('Sedan 2011 har vi arbetat med fotografering, videoproduktion, redigering och grafisk design. Den erfarenheten använder vi för att skapa det ni behöver – för ert varumärke, er verksamhet eller ert event – och se till att ert budskap och er känsla når fram till rätt publik.', 'Since 2011 we have worked across photography, video production, editing and graphic design. We use that experience to create what you need – for your brand, your business or your event – and make sure your message and feeling reach the right audience.'))}</p>
-      <p>{x(L('Målet är alltid detsamma: material av hög kvalitet som överträffar förväntningarna.', 'The goal is always the same: high-quality work that exceeds expectations.'))}</p>
-      <a href="om-oss.html" class="btn btn-line" style="margin-top:12px" data-arrow>{x(L('Om oss', 'About us'))}</a>
-      <div class="stats"><div><b>2011</b><span>{x(L('erfarenhet sedan', 'experience since'))}</span></div><div><b>{x(L('Sverige', 'Sweden'))}</b><span>{x(L('uppdrag i hela landet', 'assignments nationwide'))}</span></div><div><b>{x(L('Världen', 'Abroad'))}</b><span>{x(L('bl.a. Spanien', 'incl. Spain'))}</span></div></div>
-    </div>
-  </div>
-</section>'''
+    def bimg(n, cap):
+        return f'<figure><img src="{I(n)}" alt="{x(cap)}" loading="lazy"><figcaption>{x(cap)}</figcaption></figure>'
+    intro = f'''<section class="sec sec-sand iwA"><div class="wrap"><div class="iwA-grid">
+  <div class="t t-intro" data-r><span class="eyebrow">SanDak Production</span><p class="statement">{x(L('En produktionsbyrå för <em>foto, film och design</em> – från en enskild porträttbild till en hel kampanj.', 'A production studio for <em>photo, film and design</em> – from a single portrait to a full campaign.'))}</p></div>
+  <div class="t t-vid" data-r="80"><video src="{V('v-crew')}.mp4" poster="{V('v-crew')}.jpg" muted loop playsinline data-inview aria-hidden="true"></video><span class="t-chip">{x(L('Foto · Video · Design', 'Photo · Video · Design'))}</span></div>
+  <div class="t t-year" data-r="80"><b>2011</b><span>{x(L('Erfarenhet av foto, film, redigering och design', 'Experience in photo, film, editing and design'))}</span></div>
+  <div class="t t-img" data-r="160">{bimg('v-chef.jpg', L('Restaurang', 'Restaurant'))}</div>
+  <div class="t t-img" data-r="160">{bimg('v-living.jpg', L('Fastighet', 'Real estate'))}</div>
+  <div class="t t-text" data-r><p>{x(L('Sedan 2011 har vi arbetat med fotografering, videoproduktion, redigering och grafisk design. Den erfarenheten använder vi för att skapa det ni behöver – för ert varumärke, er verksamhet eller ert event.', 'Since 2011 we have worked across photography, video production, editing and graphic design. We use that experience to create what you need – for your brand, your business or your event.'))}</p><p class="t-goal">{x(L('Målet är alltid detsamma: material av hög kvalitet som överträffar förväntningarna.', 'The goal is always the same: high-quality work that exceeds expectations.'))}</p><a href="om-oss.html" class="btn btn-line" data-arrow>{x(L('Om oss', 'About us'))}</a></div>
+  <div class="t t-reach" data-r="80"><b>{x(L('Hela Sverige', 'All of Sweden'))}</b><span>{x(L('och internationellt – bl.a. Spanien', 'and internationally – including Spain'))}</span></div>
+  <div class="t t-img" data-r="160">{bimg('r-portrait2.jpg', L('Porträtt', 'Portrait'))}</div>
+</div></div></section>'''
     services = f'''<section class="sec sec-sand" id="tjanster">
   <div class="wrap">
     <div class="head-row">
@@ -676,8 +676,6 @@ def build():
                   L('Sol, palmblad och ett sällskap som <em>jublade</em> genom hela ceremonin.', 'Sunshine, palm leaves and guests who <em>cheered</em> through the whole ceremony.'),
                   f'<div class="row">{fi("wide","s-cer1.jpg")}</div><div class="row r3">{fi("tall","s-vows.jpg")}{fv("tall","reel-toast",100)}{fi("tall","s-exit.jpg",200)}</div><div class="row r2">{fi("tall","s-cer2.jpg")}{fi("tall","s-cer3.jpg",100)}</div>',
                   ('projekt-skogsbrollop.html', L('Skogsbröllop', 'Forest wedding')))
-    import sys; sys.path.insert(0, os.path.dirname(__file__)); import variants
-    C.lang = 'sv'; C.P = ''; C.slug = 'intro-varianter.html'; variants.build_variants(sys.modules[__name__])
     print('built', [l['code'] for l in LANGS])
 
 if __name__ == '__main__':
