@@ -36,7 +36,7 @@ SITE = {
         'youtube': '',
         'linkedin': '',
     },
-    'version': '8',
+    'version': '9',
 }
 
 LANGS = [
@@ -138,6 +138,7 @@ def header(key):
     <a href="kontakt.html" class="btn btn-solid">{x(L('Kontakt', 'Contact'))}</a>
     <div class="nav-lang">{lang_switch()}</div></nav>
   <div class="head-right">{lang_switch()}
+  <a href="{wa_link()}" class="head-wa" target="_blank" rel="noopener" aria-label="{x(L('Skriv till oss på WhatsApp', 'Message us on WhatsApp'))}">{WA_ICON}<span>WhatsApp</span></a>
   <button class="menu-btn" aria-label="{x(L('Meny', 'Menu'))}" aria-controls="nav" aria-expanded="false"><span></span><span></span></button></div>
 </div></header>'''
 
@@ -160,10 +161,7 @@ def footer():
 </div><div class="footer-bottom"><span>© <span data-year>2026</span> SanDak Production</span><span>{x(L('Foto · Video · Design · Sedan 2011', 'Photo · Video · Design · Since 2011'))}</span></div></div></footer>'''
 
 def contact_dock(key):
-    if key == 'kontakt':
-        return ''
-    return f'''<div class="mobile-bar"><a href="kontakt.html" class="btn btn-solid">{x(L('Kontakta oss', 'Contact us'))}</a><a href="{wa_link()}" class="btn ig wa" target="_blank" rel="noopener" aria-label="WhatsApp">{WA_ICON}</a></div>
-<a href="{wa_link()}" class="wa-float" target="_blank" rel="noopener" aria-label="{x(L('Skriv till oss på WhatsApp', 'Message us on WhatsApp'))}">{WA_ICON}<span>WhatsApp</span></a>'''
+    return ''
 
 def page(slug, key, title, desc, body):
     alts = ''
@@ -274,7 +272,7 @@ def process_section():
 def p_index():
     hero = f'''<section class="hero">
   <div class="hero-media" aria-hidden="true">
-    <video muted playsinline preload="auto" poster="{V('v-event-film')}.jpg" src="{V('v-event-film')}.mp4" data-m="{V('r-portrait2')}"></video>
+    <video muted playsinline preload="auto" poster="{V('v-studio')}.jpg" src="{V('v-studio')}.mp4" data-m="{V('r-portrait2')}"></video>
     <video muted playsinline preload="metadata" src="{V('v-chef')}.mp4" data-m="{V('r-grill')}"></video>
     <video muted playsinline preload="metadata" src="{V('v-living')}.mp4" data-m="{V('r-suite')}"></video>
     <video muted playsinline preload="metadata" src="{V('hero-aisle')}.mp4" data-m="{V('reel-vows')}"></video>
@@ -678,6 +676,8 @@ def build():
                   L('Sol, palmblad och ett sällskap som <em>jublade</em> genom hela ceremonin.', 'Sunshine, palm leaves and guests who <em>cheered</em> through the whole ceremony.'),
                   f'<div class="row">{fi("wide","s-cer1.jpg")}</div><div class="row r3">{fi("tall","s-vows.jpg")}{fv("tall","reel-toast",100)}{fi("tall","s-exit.jpg",200)}</div><div class="row r2">{fi("tall","s-cer2.jpg")}{fi("tall","s-cer3.jpg",100)}</div>',
                   ('projekt-skogsbrollop.html', L('Skogsbröllop', 'Forest wedding')))
+    import sys; sys.path.insert(0, os.path.dirname(__file__)); import variants
+    C.lang = 'sv'; C.P = ''; C.slug = 'intro-varianter.html'; variants.build_variants(sys.modules[__name__])
     print('built', [l['code'] for l in LANGS])
 
 if __name__ == '__main__':
