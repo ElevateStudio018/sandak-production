@@ -36,7 +36,7 @@ SITE = {
         'youtube': '',
         'linkedin': '',
     },
-    'version': '9',
+    'version': '10',
 }
 
 LANGS = [
